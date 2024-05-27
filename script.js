@@ -7,7 +7,7 @@ function searchTracks() {
 
     $('#waitModal').modal('show');
 
-    fetch(`https://spotifyapi.caliphdev.com/api/search/tracks?q=${query}`)
+    fetch(`https://api.exonity.my.id/api/spotifysearch?query=${query}`)
         .then(response => response.json())
         .then(data => {
             const musicGallery = document.getElementById('musicGallery');
@@ -22,10 +22,10 @@ function searchTracks() {
             data.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-                        <img src="${track.thumbnail}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
+                        <img src="${track.preview}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
                             <h2 class="text-lg font-semibold text-white">${track.title}</h2>
-                            <p class="text-sm text-gray-400">${track.artist}</p>
+                            <p class="text-sm text-gray-400">${track.title}</p>
                             <button onclick="showTrackInfo('${track.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
                         </div>
                     </div>
@@ -45,19 +45,19 @@ function searchTracks() {
 function showTrackInfo(trackUrl) {
     $('#waitModal').modal('show');
 
-    fetch(`https://spotifyapi.caliphdev.com/api/info/track?url=${trackUrl}`)
+    fetch(`https://api.exonity.my.id/api/spotify?url=${trackUrl}`)
         .then(response => response.json())
-        .then(data => {
+        .then(result => {
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
 
-            modalTitle.textContent = data.title;
+            modalTitle.textContent = result.title;
             modalContent.innerHTML = `
-                <img src="${data.thumbnail}" alt="${data.title}" class="w-100 rounded">
-                <p><strong>Artist:</strong> ${data.artist}</p>
-                <p><strong>Album:</strong> ${data.album}</p>
+                <img src="${result.image}" alt="${result.title}" class="w-100 rounded">
+                <p><strong>Artist:</strong> ${result.artis}</p>
+                <p><strong>Album:</strong> ${result.title}</p>
                 <audio controls class="mx-auto mt-4">
-                    <source src="https://spotifyapi.caliphdev.com/api/download/track?url=${trackUrl}" type="audio/mp3">
+                    <source src="https://api.exonity.my.id/api/spotify2?url=${trackUrl}" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
             `;
