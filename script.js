@@ -48,15 +48,16 @@ function showTrackInfo(trackUrl) {
 
     fetch(`https://api.exonity.my.id/api/spotify?url=${trackUrl}`)
         .then(response => response.json())
-        .then(result => {
+        .then(data => {
+            const resultw = data.result
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
 
             modalTitle.textContent = result.title;
             modalContent.innerHTML = `
-                <img src="${result.image}" alt="${result.title}" class="w-100 rounded">
-                <p><strong>Artist:</strong> ${result.artis}</p>
-                <p><strong>Album:</strong> ${result.title}</p>
+                <img src="${resultw.image}" alt="${resultw.title}" class="w-100 rounded">
+                <p><strong>Artist:</strong> ${resultw.artis}</p>
+                <p><strong>Album:</strong> ${resultw.title}</p>
                 <audio controls class="mx-auto mt-4">
                     <source src="https://api.exonity.my.id/api/spotify2?url=${trackUrl}" type="audio/mp3">
                     Your browser does not support the audio element.
