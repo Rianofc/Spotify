@@ -10,16 +10,17 @@ function searchTracks() {
     fetch(`https://api.exonity.my.id/api/spotifysearch?query=${query}`)
         .then(response => response.json())
         .then(data => {
+            const result = data.data
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
-            if (data.length === 0) {
+            if (result.length === 0) {
                 musicGallery.innerHTML = '<p class="text-center text-gray-600">No results found.</p>';
                 $('#waitModal').modal('hide');
                 return;
             }
 
-            data.forEach(track => {
+            result.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
                         <img src="${track.preview}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
