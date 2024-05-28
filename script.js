@@ -10,7 +10,7 @@ function searchTracks() {
     fetch(`https://api.onesytex.my.id/api/spotify-search?query=${query}`)
         .then(response => response.json())
         .then(data => {
-            const result = data.results
+            const resulte = data.results
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
@@ -20,7 +20,7 @@ function searchTracks() {
                 return;
             }
 
-            result.forEach(track => {
+            resulte.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
                         <img src="${track.image}" alt="${track.name}" class="w-full h-40 object-cover rounded-t-lg">
@@ -49,15 +49,15 @@ function showTrackInfo(trackUrl) {
     fetch(`https://api.exonity.my.id/api/spotify?url=${trackUrl}`)
         .then(response => response.json())
         .then(data => {
-            const resultw = data.result
+            const result = data.result
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
 
-            modalTitle.textContent = resultw.title;
+            modalTitle.textContent = result.title;
             modalContent.innerHTML = `
-                <img src="${resultw.image}" alt="${resultw.title}" class="w-100 rounded">
-                <p><strong>Artist:</strong> ${resultw.artis}</p>
-                <p><strong>Album:</strong> ${resultw.title}</p>
+                <img src="${result.image}" alt="${result.title}" class="w-100 rounded">
+                <p><strong>Artist:</strong> ${result.artis}</p>
+                <p><strong>Album:</strong> ${result.title}</p>
                 <audio controls class="mx-auto mt-4">
                     <source src="https://api.exonity.my.id/api/spotify2?url=${trackUrl}" type="audio/mp3">
                     Your browser does not support the audio element.
