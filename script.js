@@ -10,17 +10,17 @@ function searchTracks() {
     fetch(`https://api.onesytex.my.id/api/spotify-search?query=${query}`)
         .then(response => response.json())
         .then(data => {
-            const resulte = data.results
+            const result = data.results
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
-            if (resulte.length === 0) {
+            if (result.length === 0) {
                 musicGallery.innerHTML = '<p class="text-center text-gray-600">No results found.</p>';
                 $('#waitModal').modal('hide');
                 return;
             }
 
-            resulte.forEach(track => {
+            result.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
                         <img src="${track.image}" alt="${track.name}" class="w-full h-40 object-cover rounded-t-lg">
