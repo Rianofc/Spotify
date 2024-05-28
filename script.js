@@ -14,7 +14,7 @@ function searchTracks() {
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
-            if (result.length === 0) {
+            if (resulte.length === 0) {
                 musicGallery.innerHTML = '<p class="text-center text-gray-600">No results found.</p>';
                 $('#waitModal').modal('hide');
                 return;
