@@ -23,7 +23,7 @@ function searchTracks() {
             result.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-                        <img src="${track.image}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
+                        <img src="${track.image}" alt="${track.name}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
                             <h2 class="text-lg font-semibold text-white">${track.title}</h2>
                             <p class="text-sm text-gray-400">${track.artists}</p>
@@ -53,7 +53,7 @@ function showTrackInfo(trackUrl) {
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
 
-            modalTitle.textContent = result.title;
+            modalTitle.textContent = resultw.title;
             modalContent.innerHTML = `
                 <img src="${resultw.image}" alt="${resultw.title}" class="w-100 rounded">
                 <p><strong>Artist:</strong> ${resultw.artis}</p>
