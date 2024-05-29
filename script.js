@@ -59,7 +59,7 @@ function showTrackInfo(trackUrl) {
                 <p><strong>Artist:</strong> ${result.artis}</p>
                 <p><strong>Album:</strong> ${result.title}</p>
                 <audio controls class="mx-auto mt-4">
-                    <source src="https://api.exonity.my.id/api/spotify2?url=${trackUrl}" type="audio/mp3">
+                    <source src="${result.download}" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
             `;
