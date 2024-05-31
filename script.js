@@ -7,7 +7,7 @@ function searchTracks() {
 
     $('#waitModal').modal('show');
 
-    axios.get(`https://api.balzz.my.id/api/spotify-search?query=${query}`)
+    fetch(`https://api.balzz.my.id/api/spotify-search?query=${query}`)
         .then(response => response.json())
         .then(data => {
             const result = data.results
