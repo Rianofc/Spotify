@@ -25,7 +25,7 @@ function searchTracks() {
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
                         <img src="${track.image}" alt="${track.name}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
-                            <h2 class="text-lg font-semibold text-white">${track.duration_ms}</h2>
+                            <h2 class="text-lg font-semibold text-white">${track.name}</h2>
                             <p class="text-sm text-gray-400">${track.artists}</p>
                             <button onclick="showTrackInfo('${track.link}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
                         </div>
