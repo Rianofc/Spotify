@@ -7,10 +7,10 @@ function searchTracks() {
 
     $('#waitModal').modal('show');
 
-    fetch(`https://api.balzz.my.id/api/spotify-search?query=${query}`)
+    fetch(`https://apikita.exonity.xyz/api/yts?query=${query}`)
         .then(response => response.json())
         .then(data => {
-            const result = data.results
+            const result = data.result
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
@@ -23,11 +23,11 @@ function searchTracks() {
             result.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-                        <img src="${track.image}" alt="${track.name}" class="w-full h-40 object-cover rounded-t-lg">
+                        <img src="${track.image}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
-                            <h2 class="text-lg font-semibold text-white">${track.name}</h2>
-                            <p class="text-sm text-gray-400">${track.artists}</p>
-                            <button onclick="showTrackInfo('${track.link}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
+                            <h2 class="text-lg font-semibold text-white">${track.title}</h2>
+                            <p class="text-sm text-gray-400">${track.author.name}</p>
+                            <button onclick="showTrackInfo('${track.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
                         </div>
                     </div>
                 `;
@@ -46,7 +46,7 @@ function searchTracks() {
 function showTrackInfo(trackUrl) {
     $('#waitModal').modal('show');
 
-    fetch(`https://api.exonity.my.id/api/spotify?url=${trackUrl}`)
+    fetch(`https://apikita.exonity.xyz/api/ytdlp?url=${trackUrl}`)
         .then(response => response.json())
         .then(data => {
             const result = data.result
@@ -55,11 +55,11 @@ function showTrackInfo(trackUrl) {
 
             modalTitle.textContent = result.title;
             modalContent.innerHTML = `
-                <img src="${result.image}" alt="${result.title}" class="w-100 rounded">
-                <p><strong>Artist:</strong> ${result.artis}</p>
+                <img src="${result.thumb}" alt="${result.title}" class="w-100 rounded">
+                <p><strong>Artist:</strong> ${result.title}</p>
                 <p><strong>Album:</strong> ${result.title}</p>
                 <audio controls class="mx-auto mt-4">
-                    <source src="${result.download}" type="audio/mp3">
+                    <source src="${result.audio}" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
             `;
