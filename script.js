@@ -1,33 +1,32 @@
 function searchTracks() {
     const query = document.getElementById('searchInput').value.trim();
     if (query === '') {
-        alert('mau search apa dah?');
+        alert('Please enter a search query.');
         return;
     }
 
     $('#waitModal').modal('show');
 
-    fetch(`https://apikita.exonity.xyz/api/yts?query=${query}`)
+    fetch(`https://spotifyapi.caliphdev.com/api/search/tracks?q=${query}`)
         .then(response => response.json())
         .then(data => {
-            const resinya = data.result
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
-            if (resinya.length === 0) {
+            if (data.length === 0) {
                 musicGallery.innerHTML = '<p class="text-center text-gray-600">No results found.</p>';
                 $('#waitModal').modal('hide');
                 return;
             }
 
-            resinya.forEach(track => {
+            data.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-                        <img src="${resinya.image}" alt="${resinya.title}" class="w-full h-40 object-cover rounded-t-lg">
+                        <img src="${track.thumbnail}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
                             <h2 class="text-lg font-semibold text-white">${track.title}</h2>
-                            <p class="text-sm text-gray-400">${resinya.title}</p>
-                            <button onclick="showTrackInfo('${resinya.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
+                            <p class="text-sm text-gray-400">${track.artist}</p>
+                            <button onclick="showTrackInfo('${track.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
                         </div>
                     </div>
                 `;
@@ -46,20 +45,19 @@ function searchTracks() {
 function showTrackInfo(trackUrl) {
     $('#waitModal').modal('show');
 
-    fetch(`https://apikita.exonity.xyz/api/ytdlp?url=${trackUrl}`)
+    fetch(`https://spotifyapi.caliphdev.com/api/info/track?url=${trackUrl}`)
         .then(response => response.json())
         .then(data => {
-            const result = data.result
             const modalTitle = document.getElementById('modalTitle');
             const modalContent = document.getElementById('modalContent');
 
-            modalTitle.textContent = result.title;
+            modalTitle.textContent = data.title;
             modalContent.innerHTML = `
-                <img src="${result.thumb}" alt="${result.title}" class="w-100 rounded">
-                <p><strong>Artist:</strong> ${result.title}</p>
-                <p><strong>Album:</strong> ${result.title}</p>
+                <img src="${data.thumbnail}" alt="${data.title}" class="w-100 rounded">
+                <p><strong>Artist:</strong> ${data.artist}</p>
+                <p><strong>Album:</strong> ${data.album}</p>
                 <audio controls class="mx-auto mt-4">
-                    <source src="${result.audio}" type="audio/mp3">
+                    <source src="https://spotifyapi.caliphdev.com/api/download/track?url=${trackUrl}" type="audio/mp3">
                     Your browser does not support the audio element.
                 </audio>
             `;
