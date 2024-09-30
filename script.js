@@ -1,7 +1,7 @@
 function searchTracks() {
     const query = document.getElementById('searchInput').value.trim();
     if (query === '') {
-        alert('Please enter a search query.');
+        alert('mau search apa dah?');
         return;
     }
 
@@ -10,24 +10,23 @@ function searchTracks() {
     fetch(`https://apikita.exonity.xyz/api/yts?query=${query}`)
         .then(response => response.json())
         .then(data => {
-            const result = data.result
             const musicGallery = document.getElementById('musicGallery');
             musicGallery.innerHTML = '';
 
-            if (result.length === 0) {
+            if (data.result.length === 0) {
                 musicGallery.innerHTML = '<p class="text-center text-gray-600">No results found.</p>';
                 $('#waitModal').modal('hide');
                 return;
             }
 
-            result.forEach(track => {
+            data.result.forEach(track => {
                 const card = `
                     <div class="bg-gray-800 rounded-lg overflow-hidden shadow-md">
-                        <img src="${track.image}" alt="${track.title}" class="w-full h-40 object-cover rounded-t-lg">
+                        <img src="${data.result.image}" alt="${data.result.title}" class="w-full h-40 object-cover rounded-t-lg">
                         <div class="p-4">
                             <h2 class="text-lg font-semibold text-white">${track.title}</h2>
-                            <p class="text-sm text-gray-400">${track.title}</p>
-                            <button onclick="showTrackInfo('${track.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
+                            <p class="text-sm text-gray-400">${data.result.title}</p>
+                            <button onclick="showTrackInfo('${data.result.url}')" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-2">Play</button>
                         </div>
                     </div>
                 `;
